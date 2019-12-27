@@ -2,6 +2,10 @@ package br.com.entity;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import javax.persistence.*;
 
 /**
@@ -10,14 +14,17 @@ import javax.persistence.*;
  */
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-public class Pessoa implements Serializable {
+@DiscriminatorColumn(name = "tipo")
+public abstract class Pessoa implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	
 	private int codigo;
 	private String nome;
 	private String telefone;
 	private String email;
-	private static final long serialVersionUID = 1L;
+	private Endereco endereco;
+	private Collection<Reserva> reservas;
 
 	public Pessoa() {
 		super();
@@ -55,5 +62,24 @@ public class Pessoa implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	@Embedded
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	@OneToMany(mappedBy = "cliente")
+	public Collection<Reserva> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(Collection<Reserva> reservas) {
+		this.reservas = reservas;
+	}
+	
    
 }
