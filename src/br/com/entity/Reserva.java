@@ -17,7 +17,7 @@ public class Reserva implements Serializable {
 	
 	@Id   
 	private int codigo;
-	
+
 	private Date data;
 	
 	private double valor;
