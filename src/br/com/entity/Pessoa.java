@@ -19,20 +19,28 @@ public abstract class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+
+	@Id
+	@SequenceGenerator(name="SEQ_PESS", sequenceName="SEQ_PESS", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_PESS")
 	private int codigo;
+	
 	private String nome;
+	
 	private String telefone;
+	
 	private String email;
+	
+	@Embedded
 	private Endereco endereco;
+	
+	@OneToMany(mappedBy = "cliente")
 	private Collection<Reserva> reservas;
 
 	public Pessoa() {
 		super();
 	}
 	
-	@Id
-	@SequenceGenerator(name="SEQ_USER", sequenceName="SEQ_USER", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_USER")
 	public int getCodigo() {
 		return this.codigo;
 	}
@@ -63,7 +71,7 @@ public abstract class Pessoa implements Serializable {
 		this.email = email;
 	}
 
-	@Embedded
+	
 	public Endereco getEndereco() {
 		return endereco;
 	}
@@ -72,7 +80,7 @@ public abstract class Pessoa implements Serializable {
 		this.endereco = endereco;
 	}
 
-	@OneToMany(mappedBy = "cliente")
+	
 	public Collection<Reserva> getReservas() {
 		return reservas;
 	}

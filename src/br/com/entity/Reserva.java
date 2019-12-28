@@ -2,6 +2,7 @@ package br.com.entity;
 
 import br.com.entity.Pessoa;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.*;
 
@@ -14,16 +15,25 @@ public class Reserva implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Id   
 	private int codigo;
+	
 	private Date data;
+	
 	private double valor;
+	
+	@ManyToOne
+	@JoinColumn(name = "cod_pessoa")
 	private Pessoa cliente;
+	
+	@OneToMany(mappedBy = "reserva", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	private Collection<DiariaReservada> diarias;
 
 	public Reserva() {
 		super();
 	}
 	
-	@Id    
+ 
 	public int getCodigo() {
 		return this.codigo;
 	}
@@ -46,8 +56,7 @@ public class Reserva implements Serializable {
 		this.valor = valor;
 	}
 	
-	@ManyToOne
-	@JoinColumn(name = "cod_pessoa")
+	
 	public Pessoa getCliente() {
 		return this.cliente;
 	}
@@ -55,5 +64,12 @@ public class Reserva implements Serializable {
 	public void setCliente(Pessoa cliente) {
 		this.cliente = cliente;
 	}
-   
+
+	public Collection<DiariaReservada> getDiarias() {
+		return diarias;
+	}
+
+	public void setDiarias(Collection<DiariaReservada> diarias) {
+		this.diarias = diarias;
+	}
 }

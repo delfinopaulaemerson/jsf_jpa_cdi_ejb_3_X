@@ -16,17 +16,22 @@ public class Diaria implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@SequenceGenerator(name="SEQ_DIR", sequenceName="SEQ_DIR", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_DIR")
 	private int codigo;
+	
 	private Date data;
+	
+	@ManyToMany
+	@JoinTable(name = "hospedagem", joinColumns = @JoinColumn(name="cod_diaria"), inverseJoinColumns = @JoinColumn(name = "cod_pessoa"))
 	private Collection<PessoaFisica> hospedes;
 
 	public Diaria() {
 		super();
 	}
 	
-	@Id
-	@SequenceGenerator(name="SEQ_USER", sequenceName="SEQ_USER", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_USER") 
+	
 	public int getCodigo() {
 		return this.codigo;
 	}
@@ -42,8 +47,7 @@ public class Diaria implements Serializable {
 		this.data = data;
 	}
 
-	@ManyToMany
-	@JoinTable(name = "hospedagem", joinColumns = @JoinColumn(name="cod_diaria"), inverseJoinColumns = @JoinColumn(name = "cod_pessoa"))
+	
 	public Collection<PessoaFisica> getHospedes() {
 		return hospedes;
 	}

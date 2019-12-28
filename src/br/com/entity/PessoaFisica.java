@@ -17,8 +17,13 @@ public class PessoaFisica extends Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String cpf;
+	
 	private String rg;
+	
+	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
+	
+	@Enumerated
 	private Sexo sexo;
 
 	public PessoaFisica() {
@@ -39,7 +44,7 @@ public class PessoaFisica extends Pessoa implements Serializable {
 		this.rg = rg;
 	}
 	
-	@Temporal(TemporalType.DATE)
+	
 	public Date getDataNascimento() {
 		return this.dataNascimento;
 	}
@@ -48,7 +53,7 @@ public class PessoaFisica extends Pessoa implements Serializable {
 		this.dataNascimento = dataNascimento;
 	}
 	
-	@Enumerated
+	
 	public Sexo getSexo() {
 		return sexo;
 	}
